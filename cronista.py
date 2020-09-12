@@ -8,7 +8,7 @@ from transcriber import transcribe
 # https://setuptools.readthedocs.io/en/latest/setuptools.html#developer-s-guide
 AUDIO_PATH = "./audios"
 AUDIO_EXT = "wav"
-EXTRACT_VIDEO_COMMAND = "ffmpeg -hide_banner -loglevel warning -i {from_video_path} -f {audio_ext} -vn {to_audio_path}"
+EXTRACT_VIDEO_COMMAND = "ffmpeg -hide_banner -loglevel warning -i \"{from_video_path}\" -f {audio_ext} -vn \"{to_audio_path}\""
 DATETIME = time.strftime("%Y%m%d%H%M%S", time.localtime())
 
 def cronista_transcribe(audio_source_path: str, destination_folder: str, block_of_transcription: int, lang: str, on_transcription_progress = None, to_file: bool = True):
@@ -35,6 +35,8 @@ def cronista_transcribe_GUI(source_file_path: str, lang: str, block_of_transcrip
     command = EXTRACT_VIDEO_COMMAND.format(
         from_video_path=source_file_path, audio_ext=AUDIO_EXT, to_audio_path=audio_source_path)
     os.system(command)
+    if(not os.path.isfile(audio_source_path)):
+        on_transcription_progress("No se ha creado el fichero de audio")
 
     if not isinstance(block_of_transcription, int):
         on_transcription_progress("La cantidad introducida no está soportada, tiene que ser un número entero.")
