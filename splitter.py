@@ -102,7 +102,7 @@ def main(argv):
     filename = ""
     block_of_seconds = 20
     try:
-        opts, args = getopt.getopt(argv, "s:f:n:t:", ["src="])
+        opts = getopt.getopt(argv, "s:f:n:t:", ["src="])
 
     except getopt.GetoptError:
         print('splitter.py -s <audiosource> -f <foldername> -n <filename> (optional) -t <blockofseconds>')
@@ -123,8 +123,7 @@ def main(argv):
 
     split_wav = SplitWavAudioMubin(sound, filename, folder)
     # split_wav.multiple_split(min_per_split=1)
-    audio_segments = split_wav.multiple_split_seconds(
-        sec_per_split=block_of_seconds)
+    # audio_segments = split_wav.multiple_split_seconds(sec_per_split=block_of_seconds)
 
 
 def split(audio_path, folder_path, block_of_seconds, to_file):

@@ -1,11 +1,9 @@
 import speech_recognition as sr
 import sys
 import getopt
-import tempfile
 import json
 import os
 import math
-from pydub import AudioSegment
 
 # https://github.com/Uberi/speech_recognition/blob/master/reference/library-reference.rst
 
@@ -17,7 +15,7 @@ def main(argv):
     selected_lang = "es-ES"
 
     try:
-        opts, args = getopt.getopt(argv, "hl:s:f:", ["lang=, src=, folder="])
+        opts = getopt.getopt(argv, "hl:s:f:", ["lang=, src=, folder="])
 
     except getopt.GetoptError:
         print('script.py -l <"es", "en">')
@@ -95,10 +93,10 @@ def transcribe(audio_segments: list, lang: str, on_transcription_progress):
                     "transcription": transcript
                 })
                 #print("La transcripción del audio es: \n" + transcript)
-            except Exception as e:
+            except Exception:
                 on_transcription_progress("\t\tPista demasiado corta como para transcribir")
                 transcript_list.append(
-                    {"transcription": "", "filename": audio_file, "transcription": ""})
+                    {"filename": audio_file, "transcription": ""})
     with open(folder+"/transcript.json", "w", encoding="utf8") as outfile:
         json.dump(transcript_list, outfile, ensure_ascii=False)
         on_transcription_progress("Proceso completado!")

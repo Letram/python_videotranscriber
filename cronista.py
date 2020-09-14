@@ -23,7 +23,7 @@ def cronista_transcribe_GUI(source_file_path: str, lang: str, block_of_transcrip
         on_transcription_progress("La ruta introducida no es válida")
         exit(-1)
 
-    filename, ext = os.path.splitext(os.path.basename(source_file_path))
+    filename = os.path.splitext(os.path.basename(source_file_path))
 
     audio_source_path = AUDIO_PATH + "/" + filename + \
         "_{}".format(DATETIME) + "." + AUDIO_EXT
@@ -57,7 +57,7 @@ def main(argv):
     source_file_path = ""
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hv:", ["video="])
+        opts = getopt.getopt(sys.argv[1:], "hv:", ["video="])
 
     except getopt.GetoptError:
         print('cronista.py -v <videosource>')

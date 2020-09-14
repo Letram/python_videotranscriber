@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import filedialog, Text, Scrollbar, Label, Button, Entry, Frame
-import os
 import cronista
 import threading
 
