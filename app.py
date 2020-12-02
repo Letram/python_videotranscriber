@@ -24,6 +24,14 @@ def select_video(label_string):
 def reset_text_box():
     text_box.delete("1.0", tk.END)
 
+def execute_func(text: str):
+    if text == "{{Deshabilitar botón}}":
+        transcribe_button.config(state="disabled")
+    elif text == "{{Habilitar botón}}":
+        transcribe_button.config(state="normal")
+    else:
+        add_to_text_box(text)
+
 def add_to_text_box(text: str):
     text_box.insert(tk.END, "\n" + text)
 
@@ -33,7 +41,7 @@ def transc(audio_path, language, num_seconds, on_transcription_progress):
 def transc_btn_click(audio_path, language, num_seconds):
     reset_text_box()
     global transc_thread
-    transc_thread = threading.Thread(target = lambda: transc(audio_path.get(), language.get(), int(num_seconds.get()), add_to_text_box))
+    transc_thread = threading.Thread(target = lambda: transc(audio_path.get(), language.get(), int(num_seconds.get()), execute_func))
     transc_thread.daemon = True
     transc_thread.start()
     #cronista.cronista_transcribe_GUI(audio_path.get(), language.get(), int(num_seconds.get()), add_to_text_box)

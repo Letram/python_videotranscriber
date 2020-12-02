@@ -18,6 +18,8 @@ def cronista_transcribe(audio_source_path: str, destination_folder: str, block_o
 
 
 def cronista_transcribe_GUI(source_file_path: str, lang: str, block_of_transcription: int, on_transcription_progress):
+    if not os.path.exists('./audios'):
+        os.makedirs('./audios')
     DATETIME = time.strftime("%Y%m%d%H%M%S", time.localtime())
     if not os.path.isfile(source_file_path):
         on_transcription_progress("La ruta introducida no es válida")
@@ -25,8 +27,8 @@ def cronista_transcribe_GUI(source_file_path: str, lang: str, block_of_transcrip
 
     filename = os.path.splitext(os.path.basename(source_file_path))
 
-    audio_source_path = "{}/{}_{}.{}".format(AUDIO_PATH, filename, DATETIME, AUDIO_EXT)
-
+    audio_source_path = "{}/{}_{}.{}".format(AUDIO_PATH, filename[0], DATETIME, AUDIO_EXT)
+    print(audio_source_path)
 
     if not lang in ('es', 'en'):
         on_transcription_progress("Se ha seleccionado un idioma no válido")

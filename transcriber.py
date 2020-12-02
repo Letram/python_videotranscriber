@@ -72,6 +72,7 @@ def main(argv):
 
 
 def transcribe(audio_segments: list, lang: str, on_transcription_progress):
+    on_transcription_progress("{{Deshabilitar botón}}")
     r = sr.Recognizer()
     folder = os.path.dirname(audio_segments[0]["audio_path"])
     transcript_list = []
@@ -95,11 +96,26 @@ def transcribe(audio_segments: list, lang: str, on_transcription_progress):
                 #print("La transcripción del audio es: \n" + transcript)
             except Exception:
                 on_transcription_progress("\t\tPista demasiado corta como para transcribir")
-                transcript_list.append(
-                    {"filename": audio_file, "transcription": ""})
+                transcript_list.append({
+                    "from": audio_file["from_time"], 
+                    "to": audio_file["to_time"], 
+                    "filename": os.path.basename(audio_file["audio_path"]), 
+                    "transcription": ""})
     with open(folder+"/transcript.json", "w", encoding="utf8") as outfile:
         json.dump(transcript_list, outfile, ensure_ascii=False)
+    with open(folder+"/transcript.txt", "w", encoding="utf8") as outfile:
+        text = ""
+        for transcription in transcript_list:
+            text += """
+            ---\n
+            Inicio: {}\n
+            Fin: {}\n
+            Transcripción: {}\n
+            ---\n
+            """.format(transcription["from"], transcription["to"], transcription["transcription"])
+        outfile.write(text)
         on_transcription_progress("Proceso completado!")
+        on_transcription_progress("{{Habilitar botón}}")
 
 
 if __name__ == "__main__":
