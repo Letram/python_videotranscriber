@@ -8,8 +8,12 @@ _Download the ZIP file of the project so you can have in your local machine._
 ### Pre-requisites 📋
 
 * [Python 3.7.7+ & pip] (https://www.python.org/downloads/)
-* [VisualStudio Buildtools] (https://visualstudio.microsoft.com/es/downloads/) - Just below "Tools for Visual Studio"
+* [VisualStudio Buildtools] (https://visualstudio.microsoft.com/es/downloads/) - Just below "Tools for Visual Studio". 
+  * C++ for Desktop Development
+  * Windows 10 SDK 
 * [FFMPEG] (https://github.com/FFmpeg/FFmpeg) - Needs to be added to the PATH
+
+> For **FFMPEG installation** I'd recommend the full build installation from the [official site] (https://ffmpeg.org/download.html). Once downloaded, it has to be extracted in the root of the PC and the `bin` folder needs to be added to the path. 
 
 ### Installation 🔧
 
