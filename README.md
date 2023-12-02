@@ -19,6 +19,10 @@ _Download the ZIP file of the project so you can have in your local machine._
 
 _Open a terminal inside the project's folder and run:_
 ```
+python -m venv transcriber
+
+source ./transcriber/Scripts/activate OR IN WINDOWS .\transcriber\Scripts\activate.bat
+
 pip install -r requirements.txt
 ```
 
